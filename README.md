@@ -25,9 +25,9 @@ geneal
    * Select an unfairness metric and put the index of it in line 240.
       * Candidate metrics in our implementation: ['overall_accuracy_equality', 'statistical_parity', 'conditional_procedure', 'conditional_use_accuracy_equality', 'treatment_equality', 'all_equality', 'calibration']
    * Run the code
-   ```
-   python main.py
-   ```
+     ```
+     python main.py
+     ```
 
 
 
