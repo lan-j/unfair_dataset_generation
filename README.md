@@ -9,13 +9,13 @@ This project implemented a novel data generation method using a genetic algorith
 ## Getting Started
 
 ### Dependencies
-sklearn
-pandas
-numpy
-random
-collections
-statistics
-geneal
+* sklearn
+* pandas
+* numpy
+* random
+* collections
+* statistics
+* geneal
 
 ### Executing program
 
