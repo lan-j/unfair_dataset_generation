@@ -12,8 +12,6 @@ This project implemented a novel data generation method using a genetic algorith
 * sklearn
 * pandas
 * numpy
-* random
-* collections
 * statistics
 * geneal
 
