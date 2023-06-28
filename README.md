@@ -22,10 +22,14 @@ This project implemented a novel data generation method using a genetic algorith
    * Put your reference dataset in the datasets folder.
    * Select an unfairness metric and put the index of it in line 240.
       * Candidate metrics in our implementation: ['overall_accuracy_equality', 'statistical_parity', 'conditional_procedure', 'conditional_use_accuracy_equality', 'treatment_equality', 'all_equality', 'calibration']
-   * Run the code
+   * Generate a reference dataset
      ```
-     python main.py
+     python main.py --generate_reference
      ```
+  * Generate the unfair dataset
+    ```
+    python main.py
+    ```
 
 
 
