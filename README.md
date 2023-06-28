@@ -4,7 +4,7 @@ This repository contains the implementation of Synthetic Dataset Generation for 
 
 
 ## Description
-This project implemented a novel data generation method using a genetic algorithm to intentionally induce bias in datasets for multiple statistical fairness metrics.
+This project implemented a data generation method using a genetic algorithm to intentionally induce bias in datasets for multiple statistical fairness metrics.
 
 ## Getting Started
 
