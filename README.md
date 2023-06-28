@@ -19,8 +19,7 @@ This project implemented a novel data generation method using a genetic algorith
 
 * How to run the program
 
-   * Put your reference dataset in the datasets folder.
-   * Select an unfairness metric and put the index of it in line 240.
+   * Select an unfairness metric and add the index to the command line.
       * Candidate metrics in our implementation: ['overall_accuracy_equality', 'statistical_parity', 'conditional_procedure', 'conditional_use_accuracy_equality', 'treatment_equality', 'all_equality', 'calibration']
    * Generate a reference dataset
      ```
@@ -28,7 +27,7 @@ This project implemented a novel data generation method using a genetic algorith
      ```
   * Generate the unfair dataset
     ```
-    python main.py
+    python main.py --unfair_metric 7 --dataset "simulated.csv"
     ```
 
 
