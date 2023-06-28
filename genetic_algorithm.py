@@ -1,14 +1,9 @@
 from typing import Sequence
 
 import numpy as np
-import pandas as pd
 import math
-from skopt.space import Integer, Categorical, Real
 
-import statistics
 from genetic_algorithm_base import GenAlgSolver
-from geneal.utils.helpers import get_input_dimensions
-from sklearn.datasets import make_classification
 
 
 class ContinuousGenAlgSolver(GenAlgSolver):

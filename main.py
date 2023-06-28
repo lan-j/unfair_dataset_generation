@@ -1,6 +1,6 @@
 from genetic_algorithm import ContinuousGenAlgSolver
-from data import load_ori_population
-import unfairness_metrics
+from data import load_ori_population, simulate_dataset
+import unfairness_metrics, argparse
 
 from sklearn import metrics, model_selection, pipeline, preprocessing, linear_model, ensemble
 
@@ -20,7 +20,6 @@ class calculation():
         self.inital_lr = self.initial_calculate(dataset, linear_model.LogisticRegression(max_iter=200, random_state=11798))
         self.inital_rf = self.initial_calculate(dataset, ensemble.RandomForestClassifier(random_state=11798))
         self.inital_et = self.initial_calculate(dataset, ensemble.ExtraTreesClassifier(random_state=11798))
-        self.coeff = 1
 
     def initial_calculate(self, dataset, clf):
         if self.groupkfold is None:
@@ -46,7 +45,7 @@ class calculation():
         ])
         if self.groupkfold is None:
             result = model_selection.cross_validate(pipe, dataset, pd.Series(self.labels), verbose=0, cv=xval,
-                                                    scoring=scoring, groups=self.groupkfold
+                                                    scoring=scoring
                                                     , return_estimator=True)
         else:
             result = model_selection.cross_validate(pipe, dataset, pd.Series(self.labels), verbose=0,
@@ -193,16 +192,9 @@ class calculation():
         return unfair_score[0]
 
 
-def run(datafile, metric, sstv_name):
-    if 'cog-tutor-detector' in datafile:
-        dataset, labels, groups, _, groupkfold = load_ori_population(datafile)
-    else:
-        dataset, labels, groups, _ = load_ori_population(datafile)
-
-    if 'cog-tutor-detector' in datafile:
-        fitness_function = calculation(dataset, labels, groups, metric, groupkfold)
-    else:
-        fitness_function = calculation(dataset, labels, groups, metric)
+def run(datafile, metric, sensitive_name, label):
+    dataset, labels, groups, _ = load_ori_population(datafile, sensitive_name, label)
+    fitness_function = calculation(dataset, labels, groups, metric)
 
     solver = ContinuousGenAlgSolver(
         fitness_function=fitness_function.fit_scores,
@@ -226,18 +218,45 @@ def run(datafile, metric, sstv_name):
     print("DIFFERENCE LOGISTICREGRESSION:", unfair_lr-fitness_function.inital_lr)
     print("DIFFERENCE RANDOMFOREST:", unfair_rf-fitness_function.inital_rf)
     print("DIFFERENCE EXTATREE:", unfair_et-fitness_function.inital_et)
-
-    population[sstv_name] = group
-    population['label'] = labels
-    population[0] = group
-    population.to_csv('synthetic/' + datafile.split('/')[-1].split('.')[0] + '_unfair_lr_' + str(metric) + '.csv', index=False)
+    return population, labels, group
 
 
 if __name__ == '__main__':
-    datafiles = ['cog-tutor-detector-rot-data/training_data.txt', 'synthetic/OULAD_1000_0.01.csv',
-                 'student', 'synthetic/simulated.csv']
-    for datafile in datafiles:
-        for u_metric_index in [0, 1, 5, 6]:
-            print(datafile, unfairness_metrics.UNFAIRNESS_METRICS[u_metric_index])
-            run(datafile, u_metric_index, 'label')
+    parser = argparse.ArgumentParser(
+        description="simulated dataset"
+    )
+    parser.add_argument('--generate_reference', action="store_true")
+
+    parser.add_argument('--dataset', default="simulated.csv", type=str)
+    parser.add_argument('--unfair_metric', help="overall_accuracy_equality, statistical_parity, conditional_procedure,\
+                      conditional_use_accuracy_equality, treatment_equality, all_equality, calibration", type=int,
+                        default=7)
+    parser.add_argument('--label_name', help="name of prediction", default='label')
+    parser.add_argument('--sensitive_name', help="name of sensitive feature", default='protected')
+    parser.add_argument('--save_unfair_dataset', help="add argument to save simulated unfair dataset", action="store_true", default=1)
+
+    args = parser.parse_args()
+
+    print(args)
+    datafile = args.dataset
+    u_metric_index = args.unfair_metric-1
+    label_name = args.label_name
+    sensitive_name = args.sensitive_name
+
+    if args.generate_reference:
+        print("Generating a reference dataset.")
+        simulate_dataset(sensitive_name, label_name)
+    else:
+        print(datafile, unfairness_metrics.UNFAIRNESS_METRICS[u_metric_index])
+
+        population, group, labels = run(datafile, u_metric_index, sensitive_name, label_name)
+
+        if args.save_unfair_dataset:
+            population[sensitive_name] = group
+            population[label_name] = labels
+            population.to_csv("datasets/"+datafile.split('.')[0] + '_unfair_lr_' + str(u_metric_index) + '.csv',
+                              index=False)
+            print("Unfair dataset saved to " + "datasets/"+datafile.split('.')[0] + '_unfair_lr_' + str(u_metric_index) + '.csv')
+
+
 
