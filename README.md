@@ -20,24 +20,24 @@ This project implemented a data generation method using a genetic algorithm to i
 * How to run the program
 
    * Select an unfairness metric and add the index to the command line.
-      * Candidate metrics in our implementation:
-        | Index  | Metrics |
-        | ------------- | ------------- |
-        | 1  | overall accuracy equality  |
-        | 2  | statistical parity  |
-        | 3  | conditional procedure  |
-        | 4  | conditional use accuracy equality  |
-        | 5  | treatment equality  |
-        | 6  | all equality  |
-        | 7  | calibration  |
+      | Index  | Metrics |
+      | ------------- | ------------- |
+      | 1  | overall accuracy equality  |
+      | 2  | statistical parity  |
+      | 3  | conditional procedure  |
+      | 4  | conditional use accuracy equality  |
+      | 5  | treatment equality  |
+      | 6  | all equality  |
+      | 7  | calibrated equality |
 
    * Generate a reference dataset
      ```
      python main.py --generate_reference
      ```
-  * Generate the unfair dataset
+  * Generate an unfair dataset
+    * If you want to generate an unfair dataset based on calibrated equality, the dataset you should work on is named "dataset.csv". In this dataset, the label is named "label", and the sensitive feature is named "protected". You can use the following command line:
     ```
-    python main.py --unfair_metric 7 --dataset "simulated.csv"
+    python main.py --unfair_metric 7 --dataset "simulated.csv" --label_name "label" --sensitive_name "protected" --save_unfair_dataset
     ```
 
 
