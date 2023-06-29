@@ -20,7 +20,17 @@ This project implemented a data generation method using a genetic algorithm to i
 * How to run the program
 
    * Select an unfairness metric and add the index to the command line.
-      * Candidate metrics in our implementation: ['overall_accuracy_equality', 'statistical_parity', 'conditional_procedure', 'conditional_use_accuracy_equality', 'treatment_equality', 'all_equality', 'calibration']
+      * Candidate metrics in our implementation:
+        | Index  | Metrics |
+        | ------------- | ------------- |
+        | 1  | overall accuracy equality  |
+        | 2  | statistical parity  |
+        | 3  | conditional procedure  |
+        | 4  | conditional use accuracy equality  |
+        | 5  | treatment equality  |
+        | 6  | all equality  |
+        | 7  | calibration  |
+
    * Generate a reference dataset
      ```
      python main.py --generate_reference
