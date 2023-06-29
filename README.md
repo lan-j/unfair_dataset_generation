@@ -19,7 +19,7 @@ This project implemented a data generation method using a genetic algorithm to i
 
 * How to run the program
 
-   * Select an unfairness metric and add the index to the command line.
+   * Candidate unfairness metrics in our calculation: (You need to add the index of metric to the command line.)
       | Index  | Metrics |
       | ------------- | ------------- |
       | 1  | overall accuracy equality  |
