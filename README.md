@@ -43,4 +43,4 @@ This project implemented a data generation method using a genetic algorithm to i
 
 
 # 
-We utilize GitHub as our hosting platform and will continue to rely on the GitHub issue tracker system for maintenance purposes.
+We utilize GitHub as our hosting platform and will continue to rely on the GitHub issue tracker system for maintenance purposes. This open source software is provided under the MIT License.
