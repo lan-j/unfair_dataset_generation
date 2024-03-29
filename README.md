@@ -6,6 +6,8 @@ This repository contains the implementation of Synthetic Dataset Generation for 
 ## Description
 This project implemented a data generation method using a genetic algorithm to intentionally induce bias in datasets for multiple statistical fairness metrics.
 
+Lan Jiang, Clara Belitz, and Nigel Bosch. 2024. Synthetic Dataset Generation for Fairer Unfairness Research. In Proceedings of the 14th Learning Analytics and Knowledge Conference (LAK '24). Association for Computing Machinery, New York, NY, USA, 200–209. https://doi.org/10.1145/3636555.3636868
+
 ## Getting Started
 
 ### Dependencies
